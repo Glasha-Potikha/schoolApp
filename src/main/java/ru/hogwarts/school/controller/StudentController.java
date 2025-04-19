@@ -6,9 +6,10 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("student")
+@RequestMapping(path = "/student")
 public class StudentController {
     private final StudentService studentService;
 
