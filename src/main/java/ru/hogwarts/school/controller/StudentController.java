@@ -28,6 +28,7 @@ public class StudentController {
 
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
+        student.setId(null);
         return studentService.addStudent(student);
     }
 

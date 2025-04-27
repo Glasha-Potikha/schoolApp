@@ -28,6 +28,7 @@ public class FacultyController {
 
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty) {
+        faculty.setId(null);
         return facultyService.addFaculty(faculty);
     }
 
