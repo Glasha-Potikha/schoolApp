@@ -1,43 +1,42 @@
 package ru.hogwarts.school.service;
 
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repositories.FacultyRepository;
 
 import java.util.*;
 
 @Service
 public class FacultyService {
-    private Map<Long, Faculty> facultyMap = new HashMap<>();
-    private long lastId = 0;
+    private final FacultyRepository facultyRepository;
 
+    @Autowired
+    public FacultyService(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
+    }
+    @Transactional
     public Faculty addFaculty(Faculty newFaculty) {
-        newFaculty.setId(++lastId);
-        return facultyMap.put(lastId, newFaculty);
+        return facultyRepository.save(newFaculty);
     }
-
+    @Transactional
     public Faculty getFaculty(long id) {
-        return facultyMap.get(id);
+        return facultyRepository.findById(id).get();
     }
-
+    @Transactional
     public Faculty editFaculty(Faculty updateFaculty) {
-        return facultyMap.put(updateFaculty.getId(), updateFaculty);
+        return facultyRepository.save(updateFaculty);
     }
-
+    @Transactional
     public Faculty deleteFaculty(long id) {
-        return facultyMap.remove(id);
+        Faculty faculty = facultyRepository.findById(id).get();
+        facultyRepository.deleteById(id);
+        return faculty;
     }
-
+    @Transactional
     public Collection<Faculty> filterForColor(String color) {
-        Collection<Faculty> res = new LinkedList<>();
-        Faculty f;
-        Iterator<Faculty> iterator = facultyMap.values().iterator();
-        while (iterator.hasNext()) {
-            f = iterator.next();
-            if (f.getColor().equals(color)) {
-                res.add(f);
-            }
-        }
-        return res;
+        return facultyRepository.findByColor(color);
     }
 }
+

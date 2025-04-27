@@ -6,9 +6,10 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("student")
+@RequestMapping(path = "/student")
 public class StudentController {
     private final StudentService studentService;
 
@@ -27,6 +28,7 @@ public class StudentController {
 
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
+        student.setId(null);
         return studentService.addStudent(student);
     }
 
