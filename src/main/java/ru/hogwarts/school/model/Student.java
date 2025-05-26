@@ -1,7 +1,9 @@
 package ru.hogwarts.school.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+@JsonIgnoreProperties({"faculty", "avatar", "students", "hibernateLazyInitializer", "handler"})
 @Entity
 public class Student {
     @Id
@@ -14,8 +16,9 @@ public class Student {
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
     @OneToOne
-    @JoinColumn(name="avatar_id")
+    @JoinColumn(name = "avatar_id")
     private Avatar avatar;
+
     public Student() {
     }
 
