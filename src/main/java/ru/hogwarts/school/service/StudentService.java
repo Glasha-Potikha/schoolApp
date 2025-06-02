@@ -1,11 +1,16 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repositories.StudentByName;
 import ru.hogwarts.school.repositories.StudentRepository;
+
 
 import java.util.*;
 
@@ -55,4 +60,18 @@ public class StudentService {
         return getStudent(id).getFaculty();
     }
 
+    @Transactional
+    public Integer getNumberOfStudents() {
+        return studentRepository.getNumberOfStudents();
+    }
+
+    @Transactional
+    public Integer getAvgOfStudents() {
+        return studentRepository.getAvgOfStudents();
+    }
+
+    @Transactional
+    public List<StudentByName> getStudentByName() {
+        return studentRepository.getStudentByName();
+    }
 }
