@@ -87,4 +87,20 @@ public class StudentService {
         logger.info("Was invoked method for get Student By Name");
         return studentRepository.getStudentByName();
     }
+
+    public Collection<String> getWithNameOnA() {
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .filter(name -> name.startsWith("А"))
+                .map(String::toUpperCase)
+                .sorted()
+                .toList();
+    }
+
+    public Double getAVGAge() {
+        return studentRepository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0);
+    }
 }
