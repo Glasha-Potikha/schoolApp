@@ -169,7 +169,7 @@ public class StudentService {
             logger.error("Поток был прерван :", e);
         }
     }
-
+//метод с синхронизацией
     private synchronized void printStudentName(String name) {
         System.out.println(Thread.currentThread().getName() + ": " + name);
     }
